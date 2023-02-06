@@ -11,10 +11,19 @@ const players = (playerNum, symbol) => {
 
 const displayBoard = (() => {
   const boardCells = document.querySelectorAll('.cell')
-
   boardCells.forEach((cell, index) => {
     cell.textContent = gameboard.board[index];
   });
 });
 
-displayBoard();
+const addMark = (() => {
+  const cells = document.querySelectorAll('.cell');
+  cells.forEach((cell, index) => {
+    cell.addEventListener('click', () => {
+      gameboard.board[index] = 'X'
+      displayBoard();
+    });
+  });
+})
+
+addMark()
