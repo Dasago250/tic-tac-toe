@@ -31,8 +31,8 @@ main .base {
 }
 main .base .gameboard {
   background-color: white;
-  height: 500px;
-  width: 500px;
+  height: 400px;
+  width: 400px;
   grid-column: 2/3;
   grid-row: 2/3;
   align-self: center;
@@ -40,6 +40,13 @@ main .base .gameboard {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
+}
+main .base .gameboard .cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  border: 1px solid #000;
 }
 
 footer {
