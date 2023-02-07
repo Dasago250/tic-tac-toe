@@ -7,19 +7,24 @@ const gameBoard = (() => {
       cell.textContent = board[index];
     });
   };
+  
+  const cells = document.querySelectorAll('.cell');
+  cells.forEach((cell, index) => {
+    cell.addEventListener('click',() => {
+      if (numberOfSpaces() > 0 && board[index] == '') {
+        addMark(gameBoard.currentSymbol, index);
+        game.changeTurn(numberOfSpaces());    
+      }
+    })
+  });
 
-  const addMark = (symbol) => {
-    const cells = document.querySelectorAll('.cell');
-      cells.forEach((cell, index) => {
-        cell.addEventListener('click', () => {
-          if (numberOfSpaces() > 0) {
-            board[index] = symbol
-            displayBoard();
-            game.changeTurn(numberOfSpaces());            
-          }
-        });
-      });
+  const addMark = (symbol, index) => {
+        board[index] = symbol
+        displayBoard();
+  
   }
+
+  let currentSymbol = '';
 
   const numberOfSpaces = () => {
     let spaces = 0
@@ -31,7 +36,7 @@ const gameBoard = (() => {
     return spaces;
   }
 
-  return {board, addMark, numberOfSpaces};
+  return {board, addMark, numberOfSpaces, currentSymbol};
 })();
 
 const players = (playerNum, symbol) => {
@@ -43,9 +48,9 @@ const game = (() => {
   const player2 = players('Player 2' , 'O');
   const changeTurn = (signal) => {
     if (signal % 2 !== 0) {
-      gameBoard.addMark(player1.symbol);
+      gameBoard.currentSymbol = player1.symbol;
     }else if(signal % 2 === 0){
-      gameBoard.addMark(player2.symbol);
+      gameBoard.currentSymbol = player2.symbol;
     }
   }
   return {changeTurn}
