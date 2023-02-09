@@ -27,7 +27,7 @@ main .base {
   width: 70%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, auto);
+  grid-template-rows: 200px 400px 210px;
 }
 main .base .gameboard {
   background-color: white;
@@ -47,6 +47,38 @@ main .base .gameboard .cell {
   justify-content: center;
   font-size: 50px;
   border: 1px solid #000;
+}
+main .base .buttons {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  align-self: center;
+  justify-self: center;
+}
+main .base .player1 {
+  grid-column: 1/2;
+  grid-row: 2/3;
+}
+main .base .player2 {
+  grid-column: 3/4;
+  grid-row: 2/3;
+}
+main .base .player {
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main .base .announce {
+  grid-column: 2/3;
+  grid-row: 3/4;
+  align-self: center;
+  justify-self: center;
+}
+main .base .announce .winner {
+  font-size: 50px;
+  margin: 0;
+  text-align: center;
 }
 
 footer {

@@ -28,8 +28,8 @@ const gameBoard = (() => {
 
   // Add the symbols of the players in the board array.
   const addMark = (symbol, index) => {
-        board[index] = symbol
-        displayBoard();
+    board[index] = symbol
+    displayBoard();
   
   }
 
@@ -44,21 +44,20 @@ const gameBoard = (() => {
     return spaces;
   }
 
-  return {board, addMark, numberOfSpaces, currentSymbol};
+  return {board, cells,addMark, numberOfSpaces, currentSymbol};
 })();
 
 //Function factory to create the players
-const players = (playerNum, symbol) => {
-  return {playerNum, symbol};
+const players = (playerName, symbol) => {
+  return {playerName, symbol};
 };
 
 //Module to contain the players and change the turns (Will change this module when start and reset button are implemented) 
 const game = (() => {
   const player1 = players('Player 1' , 'X');
   const player2 = players('Player 2' , 'O');
-
   // Helps to determine if the game is active or finish
-  let gameON = true;
+  let gameON = false;
 
   // Change the turn of the players
   const changeTurn = (signal) => {
@@ -80,6 +79,8 @@ const checkWinner = (() => {
 
   // Check the board and compare to the patterns and determine if there's a winner
   const checkBoard = () => {
+
+    let theresAWinner = false;
     // Normal Patterns to win in tic tac toe
     const patternsWins = [
       [gameBoard.board[0],gameBoard.board[1],gameBoard.board[2]],
@@ -102,34 +103,65 @@ const checkWinner = (() => {
           numOfOSymbols++;
         }
       }
-      console.log(`X = ${numOfXSymbols} - O = ${numOfOSymbols}`)
       if (numOfXSymbols === 3) {
         game.gameON = false;
         if (game.player1.symbol === 'X') {
-          console.log('Player 1 Wins');
+          showWinner(game.player1.playerName);
+          theresAWinner = true;
           break;
         }else{
-          console.log('Player 2 Wins');
+          showWinner(game.player2.playerName);
+          theresAWinner = true;
           break;
         }
       }else if (numOfOSymbols === 3) {
         game.gameON = false;
         if (game.player1.symbol === 'O') {
-          console.log('Player 1 Wins');
+          showWinner(game.player1.playerName);
+          theresAWinner = true;
           break;
         }else{
-          console.log('Player 2 Wins');
+          showWinner(game.player2.playerName);
+          theresAWinner = true;
           break;
         }
       }
     }
-    if(gameBoard.numberOfSpaces() === 0){
+    if(gameBoard.numberOfSpaces() === 0 && !theresAWinner){
         console.log('Draw');
     }
   };
 
-  return {endGame, checkBoard}
+  const winnerCard = document.querySelector('.winner')
+  const showWinner = (winner) => {
+
+    winnerCard.textContent = `Winner: ${winner}`;
+  }
+
+  return {endGame, checkBoard, winnerCard}
 })();
 
-// Help start the game (Will change when start and reset button are implemented)
-game.changeTurn(gameBoard.numberOfSpaces());
+//manage all the buttons logic
+const gameButtons = (() => {
+  const startBtn = document.querySelector('#startBtn');
+  const restartBtn = document.querySelector('#restartBtn');
+  restartBtn.disabled = true;
+  //Start button logic
+  startBtn.addEventListener('click', () => {
+    game.gameON = true;
+    startBtn.disabled = true;
+    restartBtn.disabled = false
+    game.changeTurn(gameBoard.numberOfSpaces());
+  });
+
+  //Restart button logic
+  restartBtn.addEventListener('click', () => {
+    game.gameON = false;
+    startBtn.disabled = false;
+    restartBtn.disabled = true;
+    checkWinner.winnerCard.textContent = '';
+    for (let i = 0; i < gameBoard.board.length; i++) {
+      gameBoard.addMark('', i);
+    }
+  });
+})();
