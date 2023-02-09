@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:wght@700&family=Roboto+Mono:wght@500&display=swap');
 *{
   box-sizing: border-box;
 }
@@ -9,26 +10,37 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  font-family: 'Roboto Mono', monospace;
 }
 
 header{
-  background-color: skyblue;
+  background-color: #FFA661;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Bebas Neue', cursive;
+  h1{
+    margin:10px;
+    font-size: 70px;
+  }
 }
 
 main{
-  background-color: white;
+  background-color: #FFFFEA;
   height: 100%;
   display: flex;
   justify-content: center;
   .base{
-    background-color: wheat ;
+    background-color: #FFED66 ;
     height: 100%;
     width: 70%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 200px 400px 210px;
+    grid-template-rows: 150px 400px 150px;
+    justify-content: center;
+    align-content: center;
     .gameboard{
-      background-color: white;
+      background-color: #FFFFEA;
       height: 400px;
       width: 400px;
       grid-column: 2 /3;
@@ -43,8 +55,9 @@ main{
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 50px;
+        font-size: 70px;
         border: 1px solid #000;
+        font-family: 'Lato', sans-serif;
       }
     }
     .buttons{
@@ -52,6 +65,24 @@ main{
       grid-row: 1 / 2;
       align-self: center;
       justify-self: center;
+      .button{
+        height: 50px;
+        width: 150px;
+        border-radius: 50px;
+        font-size: 30px;
+      }
+      #startBtn{
+        background-color: #80DE99;
+        &:disabled{
+          background-color: #D8D8D8;
+        }
+      }
+      #restartBtn{
+        background-color: #EC9B9A;
+        &:disabled{
+          background-color: #D8D8D8;
+        }
+      }
     }
     .player1{
       grid-column: 1 / 2;
@@ -67,6 +98,15 @@ main{
       display: flex;
       flex-direction: column;
       align-items: center;
+      h2{
+        font-size: 50px;
+        margin: 0;
+      }
+      p{
+        font-size: 70px;
+        margin: 0;
+        font-family: 'Lato', sans-serif;
+      }
     }
     .announce{
       grid-column: 2 / 3;
@@ -83,5 +123,17 @@ main{
 }
 
 footer{
-  background-color: skyblue;
+  background-color: #FFA661;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  p{
+    a{
+      text-decoration: none;
+      font-size: 20px;
+      &:visited{
+        color: #000;
+      }
+    }
+  }
 }

@@ -7,13 +7,22 @@ const gameBoard = (() => {
   let currentSymbol = '';
 
   // Display the board array in the HTML
-  const displayBoard = () => {
-    const boardCells = document.querySelectorAll('.cell')
+  const boardCells = document.querySelectorAll('.cell')
+  const displayBoard = () => {   
     boardCells.forEach((cell, index) => {
       cell.textContent = board[index];
+      markColor(cell, board[index]);
     });
   };
   
+  //Adjust the colors of each type of marks ( X - O )
+  const markColor = (cell, symbol) => {
+    if (symbol === 'X') {
+      cell.style.color = '#FF5E5B';
+    }else if (symbol === 'O'){
+      cell.style.color = '#00CECB';
+    }
+  };
   // Add eventListeners to the div/cell in the HTML to help put the symbols in the board and change the turns of the players 
   const cells = document.querySelectorAll('.cell');
   cells.forEach((cell, index) => {
@@ -128,15 +137,18 @@ const checkWinner = (() => {
       }
     }
     if(gameBoard.numberOfSpaces() === 0 && !theresAWinner){
-        console.log('Draw');
+        draw();
     }
   };
 
   const winnerCard = document.querySelector('.winner')
   const showWinner = (winner) => {
-
-    winnerCard.textContent = `Winner: ${winner}`;
+    winnerCard.textContent = `${winner} Wins`;
   }
+
+  const draw = () => {
+    winnerCard.textContent = 'Draw';
+  };
 
   return {endGame, checkBoard, winnerCard}
 })();
